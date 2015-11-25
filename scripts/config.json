@@ -1,6 +1,6 @@
 {
-  "username": "michael.r.rosen@intel.com",
-  "password": "ICRIlondon2015",
-  "accountIDs": ["73db4dbb-ef67-4a02-9d44-82f8066fb530"],
-  "savePath": "C:/Users/mrrosen/Documents/iot/tippling_rock/repo"
+  "username": "[Enter Username Here]",
+  "password": "[Enter Password Here]",
+  "accountIDs": ["Enter", "Array", "of Account IDs", "Here"],
+  "savePath": "[Path to where to save generated JSON; wherever tipplingrock.js is]"
 }
