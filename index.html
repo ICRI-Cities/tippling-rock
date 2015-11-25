@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="Chart.min.js"></script>
+    <script src="Chart.Scatter.min.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Tippling Rock</title>
+  </head>
+  <body>
+  
+    <div id="header">
+      <div id="header-text">Tippling Rock</div>
+      
+      <div id="header-projects">
+        <select id="header-projects-list" class="header-list">
+        </select>
+      </div>
+      
+      <div id="header-sites">
+        <select id="header-sites-list" class="header-list">
+        </select>
+      </div>
+    </div>
+    
+    <div id="content">
+    
+      <div id="left-side-bar">
+        <div id="left-side-bar-text" class="size-bar-text">
+          <div class="side-bar-text-title">Node Status</div>
+          
+          <div class="side-bar-chart">
+            <div style="margin: 0 auto; text-align: center">
+              <canvas id="node-liveness-pie" style="width: 240px; height: 240px;"></canvas>
+            </div>
+          </div>
+          
+          <div class="side-bar-chart">
+            <div style="margin: 0 auto; text-align: center">
+              <canvas id="node-liveness-line" style="width: 270px; height: 150px;"></canvas>
+            </div>
+          </div>
+          
+          <div id="left-side-bar-stats">
+            <div class="side-bar-text-sub-title">
+              <div id="left-side-bar-stats-project" style="display: inline-block;">All Projects</div> | 
+              <div id="left-side-bar-stats-site" style="display: inline-block;">All Sites</div>
+            </div>
+            <div class="side-bar-stats-box">
+              <div id="left-side-bar-stats-nodes-in-project" style="display: inline-block;"></div> nodes of
+              <div id="left-side-bar-stats-nodes-in-system" style="display: inline-block;"></div> total nodes 
+            </div>
+            <div class="side-bar-stats-box">
+              <div id="left-side-bar-stats-live-nodes-in-project" style="display: inline-block;"></div> live nodes of
+              <div id="left-side-bar-stats-nodes-in-project-live" style="display: inline-block;"></div> nodes 
+            </div>
+            <div class="side-bar-stats-box">
+              <div id="left-side-bar-stats-dead-nodes-in-project" style="display: inline-block;"></div> dead nodes of
+              <div id="left-side-bar-stats-nodes-in-project-dead" style="display: inline-block;"></div> nodes 
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="right-side-bar">
+        <div id="right-side-bar-text" class="size-bar-text">
+          <div class="side-bar-text-title">Nodes</div>
+          
+          <div id="node-list">
+          </div>
+        </div>
+      </div>
+      
+      <div id="inner-content">
+      
+        <div id="map"></div>
+        
+        <div id="bottom-bar">
+          <div id="bottom-bar-top">
+            <div id="bottom-bar-close" style="display: table;">
+              <div style="vertical-align: middle; display: table-cell">X</div>
+            </div>
+            <div id="bottom-bar-title">
+              <div style="display: table; height: inherit; padding-left: 10px;">
+                <div style="vertical-align: middle; display: table-cell;">
+                  <div id="bottom-bar-title-name"></div>
+                  <div id="bottom-bar-title-id"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="bottom-bar-content">
+            <div id="bottom-bar-content-stats">
+              <div class="bottom-bar-content-stats-column">
+                <div class="bottom-bar-content-stats-column-item">
+                  <div class="bottom-bar-content-stats-column-item-label">Project:</div>
+                  <div class="bottom-bar-content-stats-column-item-value" id="bottom-bar-content-stats-project"></div>
+                </div>
+                <div class="bottom-bar-content-stats-column-item">
+                  <div class="bottom-bar-content-stats-column-item-label">Site:</div>
+                  <div class="bottom-bar-content-stats-column-item-value" id="bottom-bar-content-stats-site"></div>
+                </div>
+                <div class="bottom-bar-content-stats-column-item">
+                  <div class="bottom-bar-content-stats-column-item-label">Hardware:</div>
+                  <div class="bottom-bar-content-stats-column-item-value" id="bottom-bar-content-stats-hardware"></div>
+                </div>
+                <div class="bottom-bar-content-stats-column-item">
+                  <div class="bottom-bar-content-stats-column-item-label">Last Update:</div>
+                  <div class="bottom-bar-content-stats-column-item-value" id="bottom-bar-content-stats-last-update"></div>
+                </div>
+              </div>
+              <div class="bottom-bar-content-stats-column">
+              <div class="bottom-bar-content-stats-column-item">
+                  <div class="bottom-bar-content-stats-column-item-label">Latitude:</div>
+                  <div class="bottom-bar-content-stats-column-item-value" id="bottom-bar-content-stats-latitude"></div>
+                </div>
+                <div class="bottom-bar-content-stats-column-item">
+                  <div class="bottom-bar-content-stats-column-item-label">Longitude:</div>
+                  <div class="bottom-bar-content-stats-column-item-value" id="bottom-bar-content-stats-longitude"></div>
+                </div>
+                <div class="bottom-bar-content-stats-column-item">
+                  <div class="bottom-bar-content-stats-column-item-label">Deployed:</div>
+                  <div class="bottom-bar-content-stats-column-item-value" id="bottom-bar-content-stats-deployed"></div>
+                </div>
+                <div class="bottom-bar-content-stats-column-item">
+                  <div class="bottom-bar-content-stats-column-item-label">Samples 24hrs:</div>
+                  <div class="bottom-bar-content-stats-column-item-value" id="bottom-bar-content-stats-samples24"></div>
+                </div>
+              </div>
+              <div class="bottom-bar-content-stats-base">
+                Node Status Over Past 12 Days:
+                <canvas id="bottom-bar-content-stats-lifebar" style="width: 288px; height: 15px;" width="288" height="15"></canvas>
+              </div>
+            </div>
+            
+            <div id="bottom-bar-content-data">
+              <div class="bottom-bar-content-data-sensors" id="sensor-list">
+              </div>
+              
+              <div class="bottom-bar-content-data-chart">
+                <div style="width: auto">
+                  <canvas id="bottom-bar-content-data-node-data" style="height: 145px; width: 100%"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div id="footer">
+      <div id="footer-text">
+        <div id="footer-last-update">Last Updated:</div>
+        ICRI London
+      </div>
+    </div>
+    <script src="tipplingrock-utils.js"></script>
+    <script src="tipplingrock.js"></script>
+  </body>
+</html>

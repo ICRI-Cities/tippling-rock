@@ -1,0 +1,425 @@
+/*
+ * style.css
+ *
+ * Style for Tippling Rock interface
+ *
+ * Michael Rosen
+ * mrrosen
+ * 11-09-2015
+ */ 
+
+
+/* Tag-specific styles */
+* {
+  font-family: Arial;
+}
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  min-width: 1180px;
+  min-height: 500px;
+}
+
+div {
+  margin: 0;
+  border: 0 none;
+  padding: 0;
+}
+
+/* Class-specific styles */
+.header-list {
+  color: #000000;
+  font-size: 18px;
+  width: 200px;
+  height: 40px;
+}
+
+.header-list-option {
+  color: #000000;
+}
+
+.side-bar-text {
+  font-size: 15px;
+}
+
+.side-bar-text-title {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.side-bar-text-sub-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  opacity: 0.8;
+}
+
+.side-bar-chart {
+  padding-top: 10px;
+}
+
+.side-bar-stats-box {
+  padding-top: 4px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 4px;
+  opacity: 0.4;
+}
+
+.bottom-bar-content-stats-column {
+  display: inline-block;
+  float: left;
+  width: 140px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 0px;
+  font-size: 11px;
+}
+
+.bottom-bar-content-stats-column-item {
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.bottom-bar-content-stats-column-item-label {
+  display: inline-block;
+  float: left;
+  width: 55px;
+  max-width: 55px;
+}
+
+.bottom-bar-content-stats-column-item-value {
+  display: inline-block;
+  text-align: right;
+  width: 85px;
+  max-width: 85px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bottom-bar-content-stats-base {
+  width: 280px;
+  margin-top: 130px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 2px;
+  font-size: 11px;
+}
+
+.bottom-bar-content-data-sensors {
+  width: 100%;
+  height: 35px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  overflow: auto;
+}
+
+.bottom-bar-content-data-sensors-item {
+  width: 120px;
+  height: 100%;
+  text-align: left;
+  padding-left: 4px;
+  padding-right: 4px;
+  display: inline-block;
+}
+
+.bottom-bar-content-data-sensors-item:hover {
+  cursor: pointer;
+  background-color: #003868;
+}
+
+.bottom-bar-content-data-sensors-item-selected {
+  width: 120px;
+  height: 100%;
+  text-align: left;
+  padding-left: 4px;
+  padding-right: 4px;
+  display: inline-block;
+  cursor: pointer;
+  background-color: #003868;
+}
+
+.bottom-bar-content-data-sensors-name {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.bottom-bar-content-data-sensors-id {
+  font-size: 10px;
+  color: #BBBBBB;
+  opacity: 0.6;
+}
+
+.bottom-bar-content-data-chart {
+  width: auto;
+  height: 145px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.node-list-item {
+  width: 270px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.node-list-item:hover {
+  cursor: pointer;
+  background-color: #002645;
+}
+
+.node-list-item-selected {
+  width: 270px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #002645;
+}
+
+.node-list-item-sub {
+  font-size: 12px;
+  opacity: 0.6;
+  color: #AAAAAA;
+}
+
+.node-list-item-name-alive {
+  font-size: 16px;
+  font-weight: bold;
+  color: #00CC00;
+  opacity: 0.9;
+  display: inline-block;
+}
+
+.node-list-item-name-dead {
+  font-size: 16px;
+  font-weight: bold;
+  color: #DD0000;
+  opacity: 0.9;
+  display: inline-block;
+}
+
+.node-list-item-id {
+  font-size: 12px;
+  color: #BBBBBB;
+  opacity: 0.6;
+  display: inline-block;
+}
+
+.node-list-item-project {
+  display: inline-block;
+}
+
+.node-list-item-site {
+  display: inline-block;
+}
+
+/* Content-specific styles */
+#header {
+  width: 100%;
+  height: 60px;
+  min-width: 1180px;
+  min-height: 60px;
+  position: absolute;
+  top: 0px;
+  background-color: #000000;
+  display: table;
+}
+
+#header-text {
+  font-size: 40px;
+  font-weight: bold;
+  height: 100%;
+  vertical-align: middle;
+  display: table-cell;
+  padding-left: 10px;
+}
+
+#header-projects {
+  float: right;
+  height: 100%;
+  padding-right: 15px;
+  padding-top: 10px;
+}
+
+#header-sites {
+  float: right;
+  height: 100%;
+  padding-right: 15px;
+  padding-top: 10px;
+}
+
+#content {
+  width: 100%;
+  position: absolute;
+  top: 60px;
+  bottom: 40px;
+  min-width: 1180px;
+  min-height: 400px;
+  background-color: #000000;
+}
+
+#left-side-bar {
+  width: 290px;
+  height: 100%;
+  min-height: 400px;
+  min-width: 290px;
+  float: left;
+  background-color: #003868;
+  overflow: auto;
+}
+
+#left-side-bar-stats {
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#inner-content {
+  margin-left: 290px;
+  margin-right: 290px;
+  min-width: 600px;
+  min-height: 400px;
+  height: 100%;
+}
+
+#map {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  min-width: 600px;
+  min-height: 400px;
+  position: relative;
+  z-index: 1;
+}
+
+#bottom-bar {
+  margin-left: 0;
+  margin-top: -250px;
+  width: 100%;
+  height: 250px;
+  min-width: 600px;
+  background-color: #002645;
+  position: relative;
+  z-index: 2;
+}
+
+#bottom-bar-top {
+  height: 50px;
+  width: 100%;
+}
+
+#bottom-bar-title {
+  height: 100%;
+  background-color: #001323;
+}
+
+#bottom-bar-title-name {
+  font-size: 16px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+#bottom-bar-title-id {
+  font-size: 12px;
+  color: #BBBBBB;
+  opacity: 0.6;
+  display: inline-block;
+}
+
+#bottom-bar-close {
+  width: 50px;
+  height: 100%;
+  float: right;
+  background-color: #000000;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#bottom-bar-close:hover {
+  cursor: pointer;
+  background-color: #444444;
+}
+
+#bottom-bar-content {
+  height: 200px;
+  width: 100%;
+}
+
+#bottom-bar-content-stats {
+  width: 300px;
+  height: 100%;
+  float: left;
+  padding-right: 10px;
+}
+
+#bottom-bar-content-data {
+  width: auto;
+  height: 100%;
+  background-color: #002040;
+  overflow: hidden;
+}
+
+#right-side-bar {
+  width: 290px;
+  height: 100%;
+  min-height: 400px;
+  min-width: 290px;
+  float: right;
+  background-color: #003868;
+  overflow: auto;
+}
+
+#node-list {
+  width: 100%;
+}
+
+#footer {
+  width: 100%;
+  height: 40px;
+  min-width: 1180px;
+  min-height: 40px;
+  position: absolute;
+  bottom: 0px;
+  background-color: #000000;
+}
+
+#footer-text {
+  padding-left: 10px;
+  padding-top: 5px;
+  font-size: 10px;
+}
+
+#footer-last-update {
+  display: inline-block;
+  float: right;
+  padding-right: 10px;
+  padding-top: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
