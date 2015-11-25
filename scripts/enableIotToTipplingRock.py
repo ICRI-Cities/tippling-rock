@@ -231,7 +231,7 @@ for n in nodes['nodes']:
     
 print("Dumping to nodes.internal.json...");
   
-json.dump(nodesInternal, open("nodes.internal.json", "w"));
+json.dump(nodesInternal, open(config['savePath'] + "/nodes.internal.json", "w"));
 
 print("Done!");
 
