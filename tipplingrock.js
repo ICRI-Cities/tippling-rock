@@ -18,7 +18,7 @@ var pieChartOptions = {
   animationEasing: "easeOutQuint",
   animateRotate: true,
   animateScale: true,
-  responsive: false,
+  responsive: false
 };
 
 var lineChartOptions = {
@@ -257,7 +257,7 @@ $.getJSON("nodes.internal.json", function(data) {
   $("#footer-last-update").text(lastUpdateStr);
 
   // Do pre-processing on the data to fill in important data structures
-  for (var node of nodes) {
+  $.each(nodes, function(i, node) {
   
     // Initialize lifebar
     /*node['lifebar'] = [];
@@ -358,7 +358,7 @@ $.getJSON("nodes.internal.json", function(data) {
         openBottomBar({data: n['id']});
       });
     }
-  }
+  });
   
   // Add all projects and sites to top dropdown lists
   fillOptions("#header-projects-list", projects, "Projects");
@@ -385,9 +385,9 @@ $("#bottom-bar-close").click(function() {
   $("#bottom-bar").fadeOut(250);
   
   // Unighlight the selected node
-  for (var n of both) {
+  $.each(both, function(i, n) {
     if (n['id'] == node['id']) {
       $("#node-list-" + n['id']).addClass("node-list-item").removeClass("node-list-item-selected");
     }
-  }
+  });
 });

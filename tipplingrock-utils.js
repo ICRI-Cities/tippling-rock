@@ -33,34 +33,38 @@ function calcLifebarIndex(t) {
 
 // Returns the node with the given id
 function findNodeByID(id) {
-  for (var node of nodes) {
-    if (node['id'] == id) {
-      return node;
-    }
-  }
+  var ret = null;
   
-  return null;
+  $.each(nodes, function(i, node) {
+    if (node['id'] == id) {
+      ret = node;
+    }
+  });
+  
+  return ret;
 }
 
 // Returns the sensor within the given node with the given id
 function findSensorByID(node, id) {
-  for (var sensor of node['sensors']) {
-    if (sensor['id'] == id) {
-      return sensor;
-    }
-  }
+  var ret = null;
   
-  return null;
+  $.each(node['sensors'], function(i, sensor) {
+    if (sensor['id'] == id) {
+      ret = sensor;
+    }
+  });
+  
+  return ret;
 }
 
 // Return list of nodes in both the given project and given site
 function intersectProjectSite(project, site) {
   var inter = [];
-  for (var node of projects[project]) {
+  $.each(projects[project], function(i, node) {
     if (sites[site].indexOf(node) >= 0) {
       inter.push(node);
     }
-  }
+  });
   
   return inter;
 }
@@ -100,7 +104,7 @@ function generateLifebar(node) {
 // Create the right bar list of nodes from the given node list
 function createNodeList(nodes) {
   var list = "";
-  for (var node of nodes) {
+  $.each(nodes, function(i, node) {
     // See if the node is alive or dead
     if (node['samples24'] > 0) {
       liveness = "alive";
@@ -121,7 +125,7 @@ function createNodeList(nodes) {
             </div>";
     
     $("#node-list").on('click', "#node-list-" + node['id'], node['id'], openBottomBar);
-  }
+  });
   
   $("#node-list").html(list);
 }
@@ -129,14 +133,14 @@ function createNodeList(nodes) {
 // Create the bottom bar list of sensors from the given sensor list
 function createSensorList(node) {
   var list = "";
-  for (var sensor of node['sensors']) {  
+  $.each(node['sensors'], function(i, sensor) {  
     list += "<div class=\"bottom-bar-content-data-sensors-item\" id=\"sensor-list-" + sensor['id'] + "\"> \
               <div class=\"bottom-bar-content-data-sensors-name\">" + sensor['name'] + "</div> \
               <div class=\"bottom-bar-content-data-sensors-id\">(" + sensor['id'] + ")</div> \
              </div>";
     
     $("#sensor-list").on('click', "#sensor-list-" + sensor['id'], {node: node, sensorID: sensor['id']}, openSensor);
-  }
+  });
   
   $("#sensor-list").html(list);
   
@@ -153,14 +157,14 @@ function openBottomBar(evt) {
   node = findNodeByID(nodeID);
   
   // Highlight the selected node (and not the others/previous)
-  for (var n of both) {
+  $.each(both, function(i, n) {
     if (n['id'] == node['id']) {
       $("#node-list-" + n['id']).addClass("node-list-item-selected").removeClass("node-list-item");
     }
     else {
       $("#node-list-" + n['id']).addClass("node-list-item").removeClass("node-list-item-selected");
     }
-  }
+  });
   
   // Fill in the various text fields based on the node's properties
   $("#bottom-bar-title-name").text(node['name']);
@@ -202,14 +206,14 @@ function openSensor(evt) {
   var sensor = findSensorByID(node, evt.data['sensorID']);
   
   // Highlight the selected sensor (and not the others/previous)
-  for (var s of node['sensors']) {
+  $.each(node['sensors'], function(i, s) {
     if (s['id'] == sensor['id']) {
       $("#sensor-list-" + s['id']).addClass("bottom-bar-content-data-sensors-item-selected").removeClass("bottom-bar-content-data-sensors-item");
     }
     else {
       $("#sensor-list-" + s['id']).addClass("bottom-bar-content-data-sensors-item").removeClass("bottom-bar-content-data-sensors-item-selected");
     }
-  }
+  });
   
   // Create data and options objects for chart
   var sensorData = [$.extend({}, lineChartElementOptions['red'], {label: sensor['name'], data: sensor['chartData']})];
@@ -222,6 +226,7 @@ function openSensor(evt) {
       scaleLabel: "<%=value%> " + sensor['units'],
       scaleFontSize: 10,
       scaleBeginAtZero: false,
+      bezierCurve: false,
       tooltipTemplate: "<%=argLabel%>; <%=value.toFixed(5)%> " + sensor['units'],
       multiTooltipTamplate: "<%=argLabel%>; <%=value.toFixed(5)%> " + sensor['units'],
       emptyDataMessage: "Sensor has no data from the past 14 days"
@@ -263,14 +268,14 @@ function projectSiteChange() {
   var projectSiteNodes = both.length;
   var projectSiteLiveNodes = 0;
   var projectSiteDeadNodes = 0;
-  for (var node of both) {
+  $.each(both, function(i, node) {
     if (node['samples24'] > 0) {
       projectSiteLiveNodes++;
     }
     else {
       projectSiteDeadNodes++;
     }
-  }
+  });
   
   $("#left-side-bar-stats-nodes-in-system").text(totalNodes);
   $("#left-side-bar-stats-nodes-in-project").text(projectSiteNodes);
@@ -319,11 +324,11 @@ function projectSiteChange() {
     for (var h = 0; (h < 24) && ((d < 13) || (h < lastUpdate.getHours())); h++) {
       var nodesAlive = 0;
       
-      for (var node of both) {
+      $.each(both, function(i, node) {
         if ((node['lifebar'].length > ((d * 24) + h)) && (node['lifebar'][(d * 24) + h] > 0)) {
           nodesAlive++;
         }
-      }
+      });
 
       avgNodesAlive += nodesAlive;
       if (minNodesAlive > nodesAlive) {
@@ -355,7 +360,7 @@ function projectSiteChange() {
   // Map
   //
   var mapBounds = new google.maps.LatLngBounds();
-  for (var node of nodes) {
+  $.each(nodes, function(i, node) {
     if (both.indexOf(node) >= 0) {
       node['marker'].setOpacity(1.0);
       mapBounds.extend(node['marker'].getPosition());
@@ -363,7 +368,7 @@ function projectSiteChange() {
     else {
       node['marker'].setOpacity(0.45);
     }
-  }
+  });
   
   map.fitBounds(mapBounds);
 }
