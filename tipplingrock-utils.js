@@ -292,7 +292,7 @@ function projectSiteChange() {
   if (projectSiteNodes > 0) {
     livenessData = [
       $.extend({}, pieChartElementOptions['green'], {label: "% Nodes Alive", value: (projectSiteLiveNodes * 100 / projectSiteNodes).toFixed(2)}), 
-      $.extend({}, pieChartElementOptions['red'], {label: "Nodes Dead", value: (projectSiteDeadNodes * 100 / projectSiteNodes).toFixed(2)})
+      $.extend({}, pieChartElementOptions['red'], {label: "% Nodes Dead", value: (projectSiteDeadNodes * 100 / projectSiteNodes).toFixed(2)})
     ];
     livenessChartOptions = pieChartOptions;
   }
