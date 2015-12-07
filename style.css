@@ -35,6 +35,11 @@ div {
   padding: 0;
 }
 
+a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
 /* Class-specific styles */
 .header-list {
   color: #000000;
