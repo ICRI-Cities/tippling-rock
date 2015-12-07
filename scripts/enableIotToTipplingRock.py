@@ -13,6 +13,7 @@ import json
 import time
 import math
 import datetime
+import os
 
 import requests
 
@@ -139,7 +140,10 @@ for aID in aIDs:
       node = {};
       node['name'] = device['name'];
       node['id'] = device['deviceId'];
-      node['site'] = device['attributes']['Site'];
+      if ("Site" in device['attributes']):
+        node['site'] = device['attributes']['Site'];
+      else:
+        node['site'] = "notspecified"; 
       node['project'] = accountInfo['name'];
       node['hardware'] = device['attributes']['Model Name'];
       node['deployed'] = device['created'];
@@ -197,7 +201,7 @@ for n in nodes['nodes']:
         s['data'].sort(key=sortFunc);
         s['chartData'] = [];
 
-        numToAvg = math.ceil(len(s['data']) / 50);
+        numToAvg = math.ceil(len(s['data']) / 50.0);
         avgVal = 0;
         avgCount = 0;
         avgTS = 0;
@@ -231,7 +235,7 @@ for n in nodes['nodes']:
     
 print("Dumping to nodes.internal.json...");
   
-json.dump(nodesInternal, open(config['savePath'] + "/nodes.internal.json", "w"));
+json.dump(nodesInternal, open(os.path.expanduser(config['savePath'] + "/nodes.internal.json"), "w"));
 
 print("Done!");
 
